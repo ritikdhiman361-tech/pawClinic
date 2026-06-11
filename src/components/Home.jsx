@@ -15,7 +15,7 @@ const Home = () => {
                      <br />  in minutes — your pet deserves the best.</h1>
                      
                  </div>
-                 <div className="py-0">
+                 <div className="">
                     <h1>✔ Certified, experienced groomers & vets
                      </h1>
                      <h1>✔ Flexible morning & afternoon time slots

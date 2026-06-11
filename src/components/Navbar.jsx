@@ -19,16 +19,14 @@ function Navbar() {
         </NavLink>
 
         <NavLink to="/appointments" className={({ isActive }) =>`hover:text-yellow-400 transition ${isActive ? "font-bold text-yellow-800" : "text-yellow-800"}`}>
-          My Appointments
+          Book Appointment
         </NavLink>
 
         <NavLink to="/bookings" className={({ isActive }) =>`hover:text-yellow-400 transition ${isActive ? "font-bold text-yellow-800" : "text-yellow-800"}`}>
           My Bookings
         </NavLink>
       </div>
-      <div>
-        <button className=" bg-blue-300 hover:bg-blue-400 text-yellow-800 font-bold px-5 py-1 rounded-xl ">Book</button>
-      </div>
+      
     </nav>
       </>
   );
