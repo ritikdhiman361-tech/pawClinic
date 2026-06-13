@@ -1,1 +1,1 @@
-pawClinicis a platform to book appointments related to pets like grooming, pet health, vaccination etc.
+pawClinic is a platform to book appointments related to pets like grooming, pet health, vaccination etc.
