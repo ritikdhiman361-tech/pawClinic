@@ -1,6 +1,4 @@
 import React from 'react'
-import { CheckLine } from "lucide-react";
-
 
 const Home = () => {
   return (

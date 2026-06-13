@@ -1,5 +1,4 @@
-import { NavLink, Routes, Route } from "react-router-dom";import Bookings from "./Bookings";
-import Appointments from "./Appointments";
+import { NavLink, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 
 function Navbar() {
@@ -7,7 +6,7 @@ function Navbar() {
        <>
     <nav className="flex items-center justify-between px-20 py-4 bg-blue-50 shadow- w-full p-8 ">
       <div className="text-2xl font-bold text-yellow-800 hover:text-yellow-400">
-        OwnUrPet 🐶
+        pawClinic🐾
       </div>
 
       <div className="flex gap-8 text-gray-700 font-medium">
