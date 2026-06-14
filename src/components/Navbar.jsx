@@ -4,7 +4,7 @@ import Home from "./Home";
 function Navbar() {
   return (
     <>
-      <nav className="flex items-center justify-between px-20 py-4 bg-blue-50 shadow- w-full p-8 ">
+      <nav className="flex items-center justify-between px-20 py-4 bg-blue-200  w-full p-8 ">
         <div className="text-2xl font-bold text-yellow-800 hover:text-yellow-400">
           pawClinic🐾
         </div>

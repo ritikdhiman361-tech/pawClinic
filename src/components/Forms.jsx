@@ -20,6 +20,7 @@ const StepDot = ({ num, current }) => {
         color: done || active ? "white" : "#b45309",
         border: active ? "none" : done ? "none" : "2px solid #fcd34d",
         boxShadow: active ? "0 0 0 4px #fde68a" : "none",
+
       }}
     >
       {done ? "✓" : num}
@@ -162,7 +163,7 @@ function BookingForm({ onBooked }) {
   };
 
   return (
-    <div style={{ padding: "1.5rem", fontFamily: "sans-serif" }}>
+    <div style={{ padding: "8.5rem", fontFamily: "sans-serif" }}>
       <div
         style={{
           maxWidth: 680,

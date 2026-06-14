@@ -1,6 +1,7 @@
 import { useState } from "react";
 const statusColor = {
   Confirmed: { bg: "#d1fae5", color: "#065f46", border: "#6ee7b7" },
+
   Cancelled: { bg: "#fee2e2", color: "#991b1b", border: "#fca5a5" },
 };
 
@@ -26,9 +27,9 @@ function BookingsPage() {
   return (
     <div
       style={{
-        padding: "2rem 1.5rem",
+        padding: "16rem",
         fontFamily: "sans-serif",
-        maxWidth: 720,
+        width: "100%",
         margin: "0 auto",
       }}
     >
@@ -40,7 +41,7 @@ function BookingsPage() {
           marginBottom: "0.25rem",
         }}
       >
-        My Bookings
+        {/* My Bookings */}
       </h1>
       <p style={{ color: "#92400e", fontSize: 14, marginBottom: "1.5rem" }}>
         {bookings.length} appointment{bookings.length !== 1 ? "s" : ""} found
@@ -50,7 +51,7 @@ function BookingsPage() {
         <div
           style={{
             textAlign: "center",
-            padding: "3rem",
+            padding: "5rem",
             background: "#fffbeb",
             borderRadius: 16,
             border: "1px dashed #fcd34d",
