@@ -36,14 +36,14 @@ function Navbar() {
           >
             My Appointments
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to="/login"
             className={({ isActive }) =>
               `hover:text-yellow-400 transition ${isActive ? "font-bold text-yellow-800" : "text-yellow-800"}`
             }
           >
             Login/Sign up
-          </NavLink>
+          </NavLink> */}
         </div>
       </nav>
     </>
