@@ -3,6 +3,20 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 const petTypeOptions = ["Dog", "Cat", "Rabbit", "Bird", "Other"];
 
+const breedOptionsByPetType = {
+  Dog: [
+    "Golden Retriever",
+    "Labrador",
+    "German Shepherd",
+    "Husky",
+    "Beagle",
+    "Pug",
+  ],
+  Cat: ["Persian Cat", "Siamese", "Maine Coon", "British Shorthair", "Bengal"],
+  Rabbit: ["Holland Lop", "Dutch", "Angora", "Rex"],
+  Bird: ["Parakeet", "Cockatiel", "Macaw", "Lovebird"],
+};
+
 function Login() {
   const navigate = useNavigate();
   const [mode, setMode] = useState("login"); // "login" | "signup"
@@ -45,6 +59,11 @@ function Login() {
 
   const handleSignupChange = (field) => (e) =>
     setSignupForm({ ...signupForm, [field]: e.target.value });
+
+  // Changing pet type clears whatever breed was picked, since it
+  // likely doesn't belong to the new type.
+  const handlePetTypeChange = (e) =>
+    setSignupForm({ ...signupForm, petType: e.target.value, petBreed: "" });
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
@@ -221,7 +240,7 @@ function Login() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <select
                     value={signupForm.petType}
-                    onChange={handleSignupChange("petType")}
+                    onChange={handlePetTypeChange}
                     className={inputClass}
                     required
                   >
@@ -235,14 +254,39 @@ function Login() {
                     ))}
                   </select>
 
-                  <input
-                    type="text"
-                    placeholder="Pet's Breed"
-                    value={signupForm.petBreed}
-                    onChange={handleSignupChange("petBreed")}
-                    className={inputClass}
-                    required
-                  />
+                  {signupForm.petType && signupForm.petType !== "Other" ? (
+                    <select
+                      value={signupForm.petBreed}
+                      onChange={handleSignupChange("petBreed")}
+                      className={inputClass}
+                      required
+                    >
+                      <option value="" disabled>
+                        Select breed
+                      </option>
+                      {(breedOptionsByPetType[signupForm.petType] || []).map(
+                        (breed) => (
+                          <option key={breed} value={breed}>
+                            {breed}
+                          </option>
+                        ),
+                      )}
+                    </select>
+                  ) : (
+                    <input
+                      type="text"
+                      placeholder={
+                        signupForm.petType === "Other"
+                          ? "Pet's Breed"
+                          : "Select pet type first"
+                      }
+                      value={signupForm.petBreed}
+                      onChange={handleSignupChange("petBreed")}
+                      className={inputClass}
+                      disabled={!signupForm.petType}
+                      required
+                    />
+                  )}
                 </div>
               </div>
             </div>

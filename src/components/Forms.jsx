@@ -81,11 +81,35 @@ const petOptions = [
   { value: "bird", label: "Bird" },
 ];
 
-const breedOptions = [
-  { value: "golden", label: "Golden Retriever" },
-  { value: "husky", label: "Husky" },
-  { value: "persian", label: "Persian Cat" },
-];
+const breedOptionsByPetType = {
+  dog: [
+    { value: "golden", label: "Golden Retriever" },
+    { value: "labrador", label: "Labrador" },
+    { value: "german_shepherd", label: "German Shepherd" },
+    { value: "husky", label: "Husky" },
+    { value: "beagle", label: "Beagle" },
+    { value: "pug", label: "Pug" },
+  ],
+  cat: [
+    { value: "persian", label: "Persian Cat" },
+    { value: "siamese", label: "Siamese" },
+    { value: "maine_coon", label: "Maine Coon" },
+    { value: "british_shorthair", label: "British Shorthair" },
+    { value: "bengal", label: "Bengal" },
+  ],
+  rabbit: [
+    { value: "holland_lop", label: "Holland Lop" },
+    { value: "dutch", label: "Dutch" },
+    { value: "angora", label: "Angora" },
+    { value: "rex", label: "Rex" },
+  ],
+  bird: [
+    { value: "parakeet", label: "Parakeet" },
+    { value: "cockatiel", label: "Cockatiel" },
+    { value: "macaw", label: "Macaw" },
+    { value: "lovebird", label: "Lovebird" },
+  ],
+};
 
 const appointmentOptions = [
   { value: "checkup", label: "Routine Checkup" },
@@ -108,6 +132,17 @@ function BookingForm({ onBooked }) {
 
   const handleChange = (field) => (e) =>
     setForm({ ...form, [field]: e.target.value });
+
+  // Whenever pet type changes, clear out any previously chosen breed —
+  // it almost certainly doesn't belong to the new pet type.
+  const handlePetTypeChange = (selected) => {
+    setPetType(selected);
+    setBreed(null);
+  };
+
+  const breedOptions = petType
+    ? breedOptionsByPetType[petType.value] || []
+    : [];
 
   const handleSubmit = () => {
     const booking = {
@@ -209,7 +244,7 @@ function BookingForm({ onBooked }) {
                 <Select
                   options={petOptions}
                   value={petType}
-                  onChange={setPetType}
+                  onChange={handlePetTypeChange}
                   placeholder="Select type"
                   styles={selectStyles}
                 />
@@ -220,7 +255,10 @@ function BookingForm({ onBooked }) {
                   options={breedOptions}
                   value={breed}
                   onChange={setBreed}
-                  placeholder="Select breed"
+                  placeholder={
+                    petType ? "Select breed" : "Select pet type first"
+                  }
+                  isDisabled={!petType}
                   styles={selectStyles}
                 />
               </div>
