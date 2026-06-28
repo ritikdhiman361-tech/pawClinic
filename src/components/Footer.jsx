@@ -2,26 +2,25 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-zinc-800 px-16 pt-12 pb-7 font-sans  flex items-center justify-center">
-      <div>
+    <footer className="bg-zinc-800 px-6 sm:px-10 md:px-16 pt-10 md:pt-12 pb-7 font-sans flex items-center justify-center">
+      <div className="w-full max-w-5xl">
         {/* Top section */}
-        <div className="grid grid-cols-3 gap-12 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 mb-10">
           {/* Brand */}
-          <div className="">
-            <div className="flex items-center gap-2 mb-6">
+          <div>
+            <div className="flex items-center gap-2 mb-4 md:mb-6">
               <span className="text-xl font-semibold text-amber-100">
                 pawClinic🐾
               </span>
             </div>
             <p className="text-zinc-300 text-sm leading-relaxed mb-5">
-              Caring for your pets with love and expertise. <br /> Book
-              appointments, track visits, and keep <br /> your furry friends
-              healthy.
+              Caring for your pets with love and expertise. Book appointments,
+              track visits, and keep your furry friends healthy.
             </p>
           </div>
 
           {/* Quick Links */}
-          <div className="flex align-bottom justify-center py-10 gap-6">
+          <div className="flex items-center sm:items-end justify-start sm:justify-center gap-6">
             {["f", "in", "tw"].map((s) => (
               <a
                 key={s}
@@ -34,8 +33,8 @@ const Footer = () => {
           </div>
 
           {/* Contact */}
-          <div className="flex flex-col px-30">
-            <p className="text-amber-100 text-xs font-semibold uppercase tracking-widest align-super mb-6  ">
+          <div className="flex flex-col">
+            <p className="text-amber-100 text-xs font-semibold uppercase tracking-widest mb-4 md:mb-6">
               Contact
             </p>
             <div className="flex flex-col gap-2">
@@ -52,7 +51,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-zinc-600 pt-5 flex justify-between items-center">
+        <div className="border-t border-zinc-600 pt-5 flex flex-col sm:flex-row gap-3 justify-between items-center text-center sm:text-left">
           <p className="text-zinc-500 text-xs">
             © 2026 PawClinic. All rights reserved.
           </p>
