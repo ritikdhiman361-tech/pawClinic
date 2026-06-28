@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
 const StepDot = ({ num, current }) => {
@@ -119,6 +120,7 @@ const appointmentOptions = [
 ];
 
 function BookingForm({ onBooked }) {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [petType, setPetType] = useState(null);
   const [breed, setBreed] = useState(null);
@@ -128,6 +130,7 @@ function BookingForm({ onBooked }) {
     email: "",
     phone: "",
     petName: "",
+    appointmentDateTime: "",
   });
 
   const handleChange = (field) => (e) =>
@@ -144,14 +147,73 @@ function BookingForm({ onBooked }) {
     ? breedOptionsByPetType[petType.value] || []
     : [];
 
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const validateStep1 = () => {
+    if (!form.name.trim()) {
+      alert("Please enter your full name.");
+      return false;
+    }
+    if (!emailPattern.test(form.email)) {
+      alert("Please enter a valid email address.");
+      return false;
+    }
+    if (!/^\d{10}$/.test(form.phone)) {
+      alert("Please enter a valid 10-digit phone number.");
+      return false;
+    }
+    return true;
+  };
+
+  const validateStep2 = () => {
+    if (!form.petName.trim()) {
+      alert("Please enter your pet's name.");
+      return false;
+    }
+    if (!petType) {
+      alert("Please select a pet type.");
+      return false;
+    }
+    if (!breed) {
+      alert("Please select a breed.");
+      return false;
+    }
+    if (!appointmentType) {
+      alert("Please select an appointment type.");
+      return false;
+    }
+    if (!form.appointmentDateTime) {
+      alert("Please choose a preferred date and time.");
+      return false;
+    }
+    if (new Date(form.appointmentDateTime) < new Date()) {
+      alert("Please choose a date and time in the future.");
+      return false;
+    }
+    return true;
+  };
+
+  const goToStep2 = () => {
+    if (validateStep1()) setStep(2);
+  };
+
+  const handleViewBookings = () => {
+    onBooked?.();
+    navigate("/bookings");
+  };
+
   const handleSubmit = () => {
+    if (!validateStep2()) return;
+
     const booking = {
       id: Date.now(),
       ...form,
       petType: petType?.label || "",
       breed: breed?.label || "",
       appointmentType: appointmentType?.label || "",
-      date: new Date().toLocaleString(),
+      date: new Date(form.appointmentDateTime).toLocaleString(),
+      bookedAt: new Date().toLocaleString(),
+      userEmail: localStorage.getItem("currentUserEmail") || "",
       status: "Confirmed",
     };
 
@@ -213,7 +275,7 @@ function BookingForm({ onBooked }) {
               </div>
             </div>
             <div className="flex justify-end mt-6">
-              <button onClick={() => setStep(2)} className={primaryBtnClass}>
+              <button onClick={goToStep2} className={primaryBtnClass}>
                 Next step →
               </button>
             </div>
@@ -272,6 +334,16 @@ function BookingForm({ onBooked }) {
                   styles={selectStyles}
                 />
               </div>
+              <div className="sm:col-span-2">
+                <Label icon="📅">Preferred date & time</Label>
+                <input
+                  className={inputClass}
+                  type="datetime-local"
+                  min={new Date().toISOString().slice(0, 16)}
+                  value={form.appointmentDateTime}
+                  onChange={handleChange("appointmentDateTime")}
+                />
+              </div>
             </div>
             <div className="flex flex-col-reverse sm:flex-row sm:justify-between gap-3 mt-6">
               <button
@@ -306,7 +378,13 @@ function BookingForm({ onBooked }) {
               <button
                 onClick={() => {
                   setStep(1);
-                  setForm({ name: "", email: "", phone: "", petName: "" });
+                  setForm({
+                    name: "",
+                    email: "",
+                    phone: "",
+                    petName: "",
+                    appointmentDateTime: "",
+                  });
                   setPetType(null);
                   setBreed(null);
                   setAppointmentType(null);
@@ -316,7 +394,7 @@ function BookingForm({ onBooked }) {
                 Book another +
               </button>
               <button
-                onClick={onBooked}
+                onClick={handleViewBookings}
                 className={`${primaryBtnClass} w-full sm:w-auto`}
               >
                 View my bookings 📅

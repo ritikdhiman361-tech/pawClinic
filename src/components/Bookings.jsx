@@ -26,6 +26,13 @@ function BookingsPage() {
     (currentUserEmail === "admin@gmail.com" ? "Admin" : currentUserEmail) ||
     "your account";
 
+  // The demo admin account can see every booking; everyone else only
+  // sees bookings they personally made.
+  const isAdmin = currentUserEmail === "admin@gmail.com";
+  const visibleBookings = isAdmin
+    ? bookings
+    : bookings.filter((b) => b.userEmail === currentUserEmail);
+
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("currentUserEmail");
@@ -82,13 +89,14 @@ function BookingsPage() {
       </div>
 
       <h1 className="text-2xl sm:text-3xl font-semibold text-amber-900 mb-1">
-        My Bookings
+        {isAdmin ? "All Bookings" : "My Bookings"}
       </h1>
       <p className="text-amber-700 text-sm mb-6">
-        {bookings.length} appointment{bookings.length !== 1 ? "s" : ""} found
+        {visibleBookings.length} appointment
+        {visibleBookings.length !== 1 ? "s" : ""} found
       </p>
 
-      {bookings.length === 0 ? (
+      {visibleBookings.length === 0 ? (
         <div className="text-center py-16 sm:py-20 px-6 bg-amber-50 rounded-2xl border border-dashed border-amber-300 text-amber-700 animate-[fadeSlideUp_0.4s_ease-out_both]">
           <div className="text-4xl mb-3 inline-block animate-[wiggle_1.8s_ease-in-out_infinite]">
             🐾
@@ -100,7 +108,7 @@ function BookingsPage() {
         </div>
       ) : (
         <div className="grid gap-4">
-          {bookings.map((b, i) => {
+          {visibleBookings.map((b, i) => {
             const statusClass =
               statusClasses[b.status] || statusClasses.Confirmed;
             const isRemoving = removingIds.has(b.id);
