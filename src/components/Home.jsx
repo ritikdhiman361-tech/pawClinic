@@ -70,7 +70,7 @@ const Home = () => {
       >
         <div className="animate-[float_4s_ease-in-out_infinite]">
           <img
-            className="w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 lg:w-140 lg:h-140 rounded-4xl object-cover transition-transform duration-300 hover:scale-105"
+            className="w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 lg:w-140 lg:h-140 rounded-4xl shadow-xl object-cover transition-transform duration-300 hover:scale-105"
             src="https://i.pinimg.com/736x/b5/ca/0e/b5ca0ee3c462f8388d68be9a5ac2fbbb.jpg"
             alt="Dog image"
           />

@@ -6,7 +6,6 @@ const navLinks = [
   { to: "/", label: "Home" },
   { to: "/appointments", label: "Book Appointment" },
   { to: "/bookings", label: "My Appointments" },
-  { to: "/login", label: "Login/Sign up" },
 ];
 
 function Navbar() {
